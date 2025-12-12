@@ -14,7 +14,7 @@ jobs:
       - name: 拉取Gitee仓库
         env:
           GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
-        run: git clone https://dream-deve:${GITEE_TOKEN}@gitee.com/dream-deve/migu_video.git
+        run: git clone https://dream-deve:${GITEE_TOKEN}@gitee.com/badboy518714/-migu_video.git
       - name: 更新内容
         run: |
           cp migu_video/interface.txt .
