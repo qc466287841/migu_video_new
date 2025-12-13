@@ -21,7 +21,7 @@ jobs:
           git config --global core.askpass ""
           # 手动克隆（临时硬编码 PAT 调试，验证后换回 Secret）
           # 替换为你的真实 PAT
-          git clone https://badboy518714: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@github.com/badboy518714/migu_video.git .
+          git clone https://badboy518714:${{ env.MIGU_TOKEN }}@github.com/badboy518714/migu_video.git .
           # 拉取完整历史，切换到 main 分支
           git fetch --all
           git checkout main
