@@ -24,9 +24,9 @@ jobs:
         
       - name: 更新内容
         run: |
-          cp migu_video/interface.txt .
-          cp migu_video/playback.xml .
-          rm -rf -migu_video
+          cp interface.txt .
+          cp playback.xml .
+          rm -rf 
       - name: 推送
         run: |
           if ! git diff --quiet --exit-code || [ -n "$(git status --porcelain)" ]; then
