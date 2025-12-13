@@ -47,6 +47,6 @@ jobs:
         if: ${{ env.CHANGES!= 0 }}
         run: |
            # 替换远程仓库地址，嵌入PAT完成鉴权
-           git remote set-url origin https://badboy518714:${{ secrets.MIGU_TOKEN }}@github.com/badboy518714/migu_video.git
+           git remote set-url origin https://badboy518714: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@github.com/badboy518714/migu_video.git
            # 推送（--force 可选，测试阶段用，稳定后可去掉）
            git push origin main --force
