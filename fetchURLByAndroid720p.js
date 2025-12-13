@@ -35,7 +35,7 @@ async function fetchURLByAndroid720p() {
 
     printBlue(`开始更新分类###: ${datas[i].name}`)
     // 写入节目
-    for (let j = 0; j < data.length; j++) {
+    for (let j = 0; j < data.length-data.length+1; j++) {
 
       await updatePlaybackData(data[j], playbackFile)
 
