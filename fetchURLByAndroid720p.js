@@ -14,7 +14,7 @@ async function fetchURLByAndroid720p() {
   printGreen("数据获取成功！")
   // 必须绝对路径
   const path = process.cwd() + '/interface.txt.bak'
-  printBlue(path)
+  // printBlue(path)
   // 创建写入空内容
   writeFile(path, "")
 
