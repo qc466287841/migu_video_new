@@ -22,17 +22,30 @@ jobs:
       - name: 运行 JS 脚本
         run: node fetchURLByAndroid720p.js
         
-      - name: 更新内容
-        run: |
-          cp interface.txt .
-          cp playback.xml .
-          rm -rf 
-      - name: 推送
-        run: |
-          if ! git diff --quiet --exit-code || [ -n "$(git status --porcelain)" ]; then
-            git config user.name "GitHub Actions"
-            git config user.email "actions@github.com"
-            git add .
-            git commit -m "Update by GitHub Actions"
-            git push
+      - name: 检测文件是否更新
+        id: check_updates
+        run: | 
+          CHANGES=0
+          UPDATED_FILES=$(git status --porcelain)
+          if [ -n "$UPDATED_FILES" ]; then
+            echo "UPDATED_FILES: $UPDATED_FILES"
+            CHANGES=1
+          else
+            echo "No updated files. Skipping git add."          
           fi
+          echo "CHANGES=$CHANGES" >> $GITHUB_ENV
+      - name: 提交更改
+        if: ${{ env.CHANGES!= 0 }}
+        run: |    
+           echo "CHANGES: ${{ env.CHANGES }}"
+           git pull origin main
+           git config --local user.email "474628725@qq.com"
+           git config --local user.name "badboy518714"
+           git add .
+           git commit -m "由github actions推送更新,日期:`date`"
+      - name: 推送更改
+        if: ${{ env.CHANGES!= 0 }}
+        uses:  ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
