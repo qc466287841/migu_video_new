@@ -57,7 +57,7 @@ async function getAndroidURL(userId, token, pid, rateType) {
     headers.UserId = userId
     headers.UserToken = token
   }
-  // console.log(headers)
+  console.log(headers)
   const str = timestramp + pid + appVersion
   const md5 = getStringMD5(str)
   const result = getSaltAndSign(md5)
