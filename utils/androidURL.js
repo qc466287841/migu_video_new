@@ -123,6 +123,7 @@ async function getAndroidURL720p(pid) {
     TerminalId: "android",
     "X-UP-CLIENT-CHANNEL-ID": `${appVersionID}`
   }
+   console.log(pid)
   console.log(headers)
   const str = timestramp + pid + appVersion.substring(0, 8)
   const md5 = getStringMD5(str)
