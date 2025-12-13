@@ -7,10 +7,18 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    env:
+      # 建议将 PAT 存为仓库 Secret（名称：MIGU_TOKEN），避免硬编码
+      MIGU_TOKEN: ${{ secrets.MIGU_TOKEN }}
+      USER_NAME: badboy518714
+      USER_EMAIL: 474628725@qq.com
+      REPO_URL: github.com/badboy518714/migu_video.git
     steps:
-      - name: 检出
+      - name: 克隆仓库（PAT 鉴权）
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 拉取完整历史，避免推送冲突
+          token: ${{ env.MIGU_TOKEN }}  # 克隆时就用 PAT，避开默认 bot 身份
       - name: 安装 Node.js
         uses: actions/setup-node@v4
         with:
@@ -35,18 +43,22 @@ jobs:
           fi
           echo "CHANGES=$CHANGES" >> $GITHUB_ENV
       - name: 提交更改
-        if: ${{ env.CHANGES!= 0 }}
+        if: ${{ env.CHANGES != 0 }}
         run: |    
-           echo "CHANGES: ${{ env.CHANGES }}"
-           git pull origin main
-           git config --local user.email "474628725@qq.com"
-           git config --local user.name "badboy518714"
-           git add .
-           git commit -m "由github actions推送更新,日期:`date`"
+          echo "CHANGES: ${{ env.CHANGES }}"
+          # 拉取最新代码（用 PAT 鉴权，避免 bot 身份）
+          git pull https://${{ env.USER_NAME }}:${{ env.PAT_TOKEN }}@${{ env.REPO_URL }} main --rebase
+          # 配置本地 Git 身份（你的账号）
+          git config --local user.email "${{ env.USER_EMAIL }}"
+          git config --local user.name "${{ env.USER_NAME }}"
+          git add .
+          git commit -m "由github actions推送更新,日期:`date`"
+
+      # 步骤4：推送更改（仅当有更改时执行）
       - name: 推送更改
-        if: ${{ env.CHANGES!= 0 }}
+        if: ${{ env.CHANGES != 0 }}
         run: |
-          # 替换远程仓库地址，嵌入 PAT 鉴权
-          git remote set-url origin https://badboy518714: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@github.com/badboy518714/migu_video.git
-          # 强制推送（如需），普通推送用 git push origin main
+          # 替换远程地址（用环境变量，避免硬编码 PAT）
+          git remote set-url origin https://${{ env.USER_NAME }}:${{ env.MIGU_TOKEN }}@${{ env.REPO_URL }}
+          # 强制推送（解决历史冲突，稳定后可去掉 --force）
           git push -u origin main --force
