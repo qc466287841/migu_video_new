@@ -11,10 +11,17 @@ jobs:
     steps:
       - name: 检出
         uses: actions/checkout@v4
-      - name: 拉取Gitee仓库
-        env:
-          GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
-        run: git clone https://dream-deve:${GITEE_TOKEN}@gitee.com/badboy518714/-migu_video.git
+      - name: 安装 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20  # 指定 Node.js 版本
+
+      - name: 安装依赖（如有）
+        run: npm install
+
+      - name: 运行 JS 脚本
+        run: node migu_video/fetchURLByAndroid720p.js
+        
       - name: 更新内容
         run: |
           cp migu_video/interface.txt .
