@@ -20,13 +20,13 @@ jobs:
         run: npm install
 
       - name: 运行 JS 脚本
-        run: node migu_video/fetchURLByAndroid720p.js
+        run: node -migu_video/fetchURLByAndroid720p.js
         
       - name: 更新内容
         run: |
-          cp migu_video/interface.txt .
-          cp migu_video/playback.xml .
-          rm -rf migu_video
+          cp -migu_video/interface.txt .
+          cp -migu_video/playback.xml .
+          rm -rf -migu_video
       - name: 推送
         run: |
           if ! git diff --quiet --exit-code || [ -n "$(git status --porcelain)" ]; then
