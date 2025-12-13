@@ -123,7 +123,7 @@ async function getAndroidURL720p(pid) {
     TerminalId: "android",
     "X-UP-CLIENT-CHANNEL-ID": `${appVersionID}`
   }
-  console.log(headers)
+  // console.log(headers)
   const str = timestramp + pid + appVersion.substring(0, 8)
   const md5 = getStringMD5(str)
 
@@ -140,14 +140,15 @@ async function getAndroidURL720p(pid) {
   const baseURL = "https://play.miguvideo.com/playurl/v1/play/playurl"
   const params = "?sign=" + sign + "&rateType=" + rateType
     + "&contId=" + pid + "&timestamp=" + timestramp + "&salt=" + salt
+  console.log(baseURL + params)
   const respData = await fetch(baseURL + params, {
     headers: headers
   }).then(r => r.json())
 
   console.dir(respData, { depth: null })
   const url = respData.body.urlInfo?.url
-  console.log(rateType)
-  console.log(url)
+  // console.log(rateType)
+  // console.log(url)
   if (!url) {
     return {
       url: "",
