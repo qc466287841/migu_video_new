@@ -87,15 +87,286 @@ def getSaltAndSign(pid):
 
 def get_content(pid):
     _headers = {
-        "AppVersion": appVersion,
-        "TerminalId": "android",
-        "X-UP-CLIENT-CHANNEL-ID": appVersionID
+        "accept": "application/json, text/plain, */*",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
+        "apipost-client-id": "465aea51-4548-495a-8709-7e532dbe3703",
+        "apipost-language": "zh-cn",
+        "apipost-machine": "3a214a07786002",
+        "apipost-platform": "Win",
+        "apipost-terminal": "web",
+        "apipost-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJfaWQiOjM5NDY2NDM3MTIyMzAwMzEzNywidGltZSI6MTc2NTYzMjU2NSwidXVpZCI6ImJlNDJjOTMxLWQ4MjctMTFmMC1hNThiLTUyZTY1ODM4NDNhOSJ9fQ.QU0RXa0e-yB-fwJNjYt_OnyM6RteY3L1BaUWqCrdAB4",
+        "apipost-version": "8.2.6",
+        "cache-control": "no-cache",
+        "content-type": "application/json",
+        "pragma": "no-cache",
+        "priority": "u=1, i",
+        "sec-ch-ua": '"Chromium";v="136", "Microsoft Edge";v="136", "Not.A/Brand";v="99"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        "cookie": "apipost-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJfaWQiOjM5NDY2NDM3MTIyMzAwMzEzNywidGltZSI6MTc2NTYzMjU2NSwidXVpZCI6ImJlNDJjOTMxLWQ4MjctMTFmMC1hNThiLTUyZTY1ODM4NDNhOSJ9fQ.QU0RXa0e-yB-fwJNjYt_OnyM6RteY3L1BaUWqCrdAB4; SERVERID=236fe4f21bf23223c449a2ac2dc20aa4|1765632725|1765632691; SERVERCORSID=236fe4f21bf23223c449a2ac2dc20aa4|1765632725|1765632691",
+        "Referer": "https://workspace.apipost.net/57a21612a051000/apis",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
     }
     result = getSaltAndSign(pid)
     rateType = "2" if pid == "608831231" else "3"  # 广东卫视有些特殊
     URL = f"https://play.miguvideo.com/playurl/v1/play/playurl?sign={result['sign']}&rateType={rateType}&contId={pid}&timestamp={result['timestamp']}&salt={result['salt']}"
-    respData = requests.get(URL, headers=_headers).json()
-    return respData
+    params = URL.split("?")[1].split("&")
+    body = {
+        "option": {
+            "scene": "http_request",
+            "lang": "zh-cn",
+            "globals": {},
+            "project": {
+                "request": {
+                    "header": {
+                        "parameter": [
+                            {
+                                "key": "Accept",
+                                "value": "*/*",
+                                "is_checked": 1,
+                                "field_type": "String",
+                                "is_system": 1
+                            },
+                            {
+                                "key": "Accept-Encoding",
+                                "value": "gzip, deflate, br",
+                                "is_checked": 1,
+                                "field_type": "String",
+                                "is_system": 1
+                            },
+                            {
+                                "key": "User-Agent",
+                                "value": "PostmanRuntime-ApipostRuntime/1.1.0",
+                                "is_checked": 1,
+                                "field_type": "String",
+                                "is_system": 1
+                            },
+                            {
+                                "key": "Connection",
+                                "value": "keep-alive",
+                                "is_checked": 1,
+                                "field_type": "String",
+                                "is_system": 1
+                            }
+                        ]
+                    },
+                    "query": {
+                        "parameter": []
+                    },
+                    "body": {
+                        "parameter": []
+                    },
+                    "cookie": {
+                        "parameter": []
+                    },
+                    "auth": {
+                        "type": "noauth"
+                    },
+                    "pre_tasks": [],
+                    "post_tasks": []
+                }
+            },
+            "env": {
+                "env_id": "1",
+                "env_name": "默认环境",
+                "env_pre_url": "",
+                "env_pre_urls": {
+                    "1": {
+                        "server_id": "1",
+                        "name": "默认服务",
+                        "sort": 1000,
+                        "uri": ""
+                    },
+                    "default": {
+                        "server_id": "1",
+                        "name": "默认服务",
+                        "sort": 1000,
+                        "uri": ""
+                    }
+                },
+                "environment": {}
+            },
+            "cookies": {
+                "switch": 1,
+                "data": []
+            },
+            "system_configs": {
+                "send_timeout": 0,
+                "auto_redirect": -1,
+                "max_redirect_time": 5,
+                "auto_gen_mock_url": -1,
+                "request_param_auto_json": -1,
+                "proxy": {
+                    "type": 2,
+                    "envfirst": 1,
+                    "bypass": [],
+                    "protocols": [
+                        "http"
+                    ],
+                    "auth": {
+                        "authenticate": -1,
+                        "host": "",
+                        "username": "",
+                        "password": ""
+                    }
+                },
+                "ca_cert": {
+                    "open": -1,
+                    "path": "",
+                    "base64": ""
+                },
+                "client_cert": {}
+            },
+            "custom_functions": {},
+            "collection": [
+                {
+                    "target_id": "3c5fd6a9786002",
+                    "target_type": "api",
+                    "parent_id": "0",
+                    "name": "MIGU",
+                    "request": {
+                        "auth": {
+                            "type": "inherit"
+                        },
+                        "body": {
+                            "mode": "None",
+                            "parameter": [],
+                            "raw": "",
+                            "raw_parameter": [],
+                            "raw_schema": {
+                                "type": "object"
+                            },
+                            "binary": None
+                        },
+                        "pre_tasks": [],
+                        "post_tasks": [],
+                        "header": {
+                            "parameter": [
+                                {
+                                    "description": "",
+                                    "field_type": "string",
+                                    "is_checked": 1,
+                                    "key": " AppVersion",
+                                    "value": "2600034600",
+                                    "not_None": 1,
+                                    "schema": {
+                                        "type": "string"
+                                    },
+                                    "param_id": "3c60653273e0b3"
+                                },
+                                {
+                                    "description": "",
+                                    "field_type": "string",
+                                    "is_checked": 1,
+                                    "key": "TerminalId",
+                                    "value": "android",
+                                    "not_None": 1,
+                                    "schema": {
+                                        "type": "string"
+                                    },
+                                    "param_id": "3c6075c1f3e0e1"
+                                },
+                                {
+                                    "description": "",
+                                    "field_type": "string",
+                                    "is_checked": 1,
+                                    "key": "X-UP-CLIENT-CHANNEL-ID",
+                                    "value": "2600034600-99000-201600010010028",
+                                    "not_None": 1,
+                                    "schema": {
+                                        "type": "string"
+                                    },
+                                    "param_id": "3c60858bb3e10c"
+                                }
+                            ]
+                        },
+                        "query": {
+                            "parameter": [
+                                {
+                                    "param_id": "3c5fd74233e004",
+                                    "field_type": "string",
+                                    "is_checked": 1,
+                                    "key": "sign",
+                                    "not_None": 1,
+                                    "value": params[0].split("=")[1],
+                                    "description": ""
+                                },
+                                {
+                                    "param_id": "3c6022f433e030",
+                                    "field_type": "string",
+                                    "is_checked": 1,
+                                    "key": "rateType",
+                                    "not_None": 1,
+                                    "value": params[1].split("=")[1],
+                                    "description": ""
+                                },
+                                {
+                                    "param_id": "3c60354133e05b",
+                                    "field_type": "string",
+                                    "is_checked": 1,
+                                    "key": "contId",
+                                    "not_None": 1,
+                                    "value": params[2].split("=")[1],
+                                    "description": ""
+                                },
+                                {
+                                    "param_id": "3c605e4bf860b1",
+                                    "field_type": "String",
+                                    "is_checked": 1,
+                                    "key": "timestamp",
+                                    "not_None": 1,
+                                    "value": params[3].split("=")[1],
+                                    "description": ""
+                                },
+                                {
+                                    "param_id": "3c605e4c3860b2",
+                                    "field_type": "String",
+                                    "is_checked": 1,
+                                    "key": "salt",
+                                    "not_None": 1,
+                                    "value": params[4].split("=")[1],
+                                    "description": ""
+                                }
+                            ],
+                            "query_add_equal": 1
+                        },
+                        "cookie": {
+                            "parameter": [],
+                            "cookie_encode": 1
+                        },
+                        "restful": {
+                            "parameter": []
+                        },
+                        "tabs_default_active_key": "query"
+                    },
+                    "parents": [],
+                    "method": "POST",
+                    "protocol": "http/1.1",
+                    "url": URL,
+                    "pre_url": ""
+                }
+            ],
+            "database_configs": {}
+        },
+        "test_events": [
+            {
+                "type": "api",
+                "data": {
+                    "target_id": "3c5fd6a9786002",
+                    "project_id": "57a21612a051000",
+                    "parent_id": "0",
+                    "target_type": "api"
+                }
+            }
+        ]
+    }
+    body = json.dumps(body, separators=(",", ":"))
+    url = "https://workspace.apipost.net/proxy/v2/http"
+    resp = requests.post(url, headers=_headers, data=body).json()
+    return json.loads(resp["data"]["data"]["response"]["body"])
 
 
 def getddCalcu720p(url, pID):
